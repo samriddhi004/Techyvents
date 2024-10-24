@@ -29,6 +29,27 @@
                     <label for="inputDescription">Description</label>
                     <input type="text" class="form-control" id="inputDescription" placeholder="Enter event description" required>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCategories">Categories</label>
+                        <select id="inputCategories" class="form-control" required>
+                            <option selected disabled>Choose...</option>
+                            <option value="ai_ml">AI/ML</option>
+                            <option value="cloud">Cloud</option>
+                            <option value="web_development">Web Development</option>
+                            <option value="data_science">Data Science</option>
+                            <option value="cyber_security">Cyber Security</option>
+                            <option value="blockchain">Blockchain</option>
+                            <option value="iot">IoT</option>
+                            <option value="mobile_development">Mobile Development</option>
+                            <option value="ux_ui_design">UX/UI Design</option>
+                            <option value="devops">DevOps</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="healthcare_tech">Healthcare Tech</option>
+                            <option value="fintech">FinTech</option>
+                            <option value="education_tech">Education Tech</option>
+                        </select>
+                    </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -55,6 +76,10 @@
                     <label for="inputVenue">Venue</label>
                     <input type="text" class="form-control" id="inputVenue" placeholder="Enter venue name" required>
                 </div>
+                <div class="form-group">
+                    <label for="image">Upload Event Image</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                </div>
                 <div class="form-group col-md-4">
                     <label for="inputEventMode">Event Mode</label>
                     <select id="inputEventMode" class="form-control" required>
@@ -71,48 +96,28 @@
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputCategories">Categories</label>
-                    <select id="inputCategories" class="form-control" required>
-                        <option selected disabled>Choose...</option>
-                        <option value="ai_ml">AI/ML</option>
-                        <option value="cloud">Cloud</option>
-                        <option value="web_development">Web Development</option>
-                        <option value="data_science">Data Science</option>
-                        <option value="cyber_security">Cyber Security</option>
-                        <option value="blockchain">Blockchain</option>
-                        <option value="iot">IoT</option>
-                        <option value="mobile_development">Mobile Development</option>
-                        <option value="ux_ui_design">UX/UI Design</option>
-                        <option value="devops">DevOps</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="healthcare_tech">Healthcare Tech</option>
-                        <option value="fintech">FinTech</option>
-                        <option value="education_tech">Education Tech</option>
-                    </select>
+                <div class="form-row">
+                    <div id="ticketPriceGroup" class="form-group col-md-6">
+                        <label for="inputTicketPrice">Ticket Price</label>
+                        <input type="number" class="form-control" id="inputTicketPrice" placeholder="Enter ticket price" required>
+                    </div>
                 </div>
+            </div>
                 <div class="form-group col-md-6">
                     <label for="inputRegistrationLink">Registration Link</label>
                     <input type="url" class="form-control" id="inputRegistrationLink" placeholder="Enter registration URL" required>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip" placeholder="Enter ZIP code" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputTicketPrice">Ticket Price</label>
-                    <input type="number" class="form-control" id="inputTicketPrice" placeholder="Enter ticket price" required>
-                </div>
-            </div>
+            
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputOrganizers">Organizers</label>
                     <input type="text" class="form-control" id="inputOrganizers" placeholder="Enter organizer names" required>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="inputKeywords">Keywords</label>
+                <input type="text" class="form-control" id="inputKeywords" placeholder="Enter keywords separated by commas">
             </div>
             <div class="form-group">
                 <div class="form-check">
@@ -122,21 +127,32 @@
                     </label>
                 </div>
             </div>
+            
             <button type="submit" class="btn btn-primary">Create Event</button>
         </form>
     </div>
     
     <script>
-        // Show ticket price field only if 'paid' is selected
-        document.getElementById('pricing').addEventListener('change', function () {
-            if (this.value === 'paid') {
-                document.getElementById('ticketPrice').style.display = 'block';
-                document.getElementById('ticketPriceLabel').style.display = 'block';
-            } else {
-                document.getElementById('ticketPrice').style.display = 'none';
-                document.getElementById('ticketPriceLabel').style.display = 'none';
-            }
-        });
+       // Get references to the pricing select element and the ticket price input group
+    const pricingSelect = document.getElementById('inputPricing');
+    const ticketPriceGroup = document.getElementById('ticketPriceGroup');
+
+    // Function to toggle the visibility of the ticket price input group
+    function toggleTicketPrice() {
+        if (pricingSelect.value === 'paid') {
+            ticketPriceGroup.style.display = 'block';
+        } else {
+            ticketPriceGroup.style.display = 'none';
+        }
+    }
+
+    // Attach the change event to the pricing select element
+    pricingSelect.addEventListener('change', toggleTicketPrice);
+
+    // Call the function on page load to ensure the correct state
+    window.onload = function() {
+        toggleTicketPrice();
+    };
     </script>
 </body>
 </html>

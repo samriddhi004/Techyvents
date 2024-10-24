@@ -9,39 +9,35 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    dateTime: {
+    category: {
+        type: String,
+        enum: ['AI/ML', 'Cloud', 'Web Development', 'Mobile Development', 'Blockchain', 'Cybersecurity', 'Data Science'],
+        required: true
+    },
+    startdateTime: {
         type: Date,
         required: true
     },    
-    location: {
+    enddateTime: {
+        type: Date,
+        required: true
+    },  
+    address: {
+        type: String,
+        required: true
+    },
+    venue: {
         type: String,
         required: true
     },
     imageUrl: {
         type: String
     },
-    eventType: {
+    eventMode: {
         type: String,
-        enum: ['online', 'offline'],  // Online or offline event
+        enum: ['online', 'on-site'],  // Online or offline event
         required: true
     },
-    category: {
-        type: String,
-        enum: ['AI/ML', 'Cloud', 'Web Development', 'Mobile Development', 'Blockchain', 'Cybersecurity', 'Data Science'],
-        required: true
-    },
-    registrationLink: {
-        type: String  // If registration is required
-    },
-    duration: {
-        type: Number,  // Duration in hours
-        required: true
-    },
-    organizer: {
-        type: String,  // Event organizer's name or details
-        required: true
-    },
-    keywords: [String],  // Tags or keywords for the event (e.g., ['AI', 'Web Development'])
     pricing: {
         type: String,
         enum: ['free', 'paid'],
@@ -51,11 +47,24 @@ const eventSchema = new mongoose.Schema({
         type: Number,  // Only required if the event is 'paid'
         required: function() { return this.pricing === 'paid'; }
     },
-    speakers: [{
-        name: String,
-        title: String,
-        bio: String
-    }],
+    registrationLink: {
+        type: String  // If registration is required
+    },
+    // duration: {
+    //     type: Number,  // Duration in hours
+    //     required: true
+    // },
+    organizer: {
+        type: String,  // Event organizer's name or details
+        required: true
+    },
+    keywords: [String],  // Tags or keywords for the event (e.g., ['AI', 'Web Development'])
+    
+    // speakers: [{
+    //     name: String,
+    //     title: String,
+    //     bio: String
+    // }],
 });
 
 const Event = mongoose.model('Event', eventSchema);
