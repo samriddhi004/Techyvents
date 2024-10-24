@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Techyvents' });
 });
 
+router.get('/create-event', function(req, res, next) {
+  res.render('createEvent');
+});
+
 module.exports = router;
