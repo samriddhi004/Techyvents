@@ -17,9 +17,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Techyvents' });
 });
 
-router.get('/create-event', function(req, res, next) {
-  res.render('createEvent');
-});
+// router.get('/create-event', function(req, res, next) {
+//   res.render('createEvent',{title:'Create Event'});
+// });
 
 router.post('/create-event',upload.single('image'),async (req,res)=>{
   const { title, description, category, startdateTime, enddateTime, address, venue, eventMode, pricing, registrationLink, organizer, keywords } = req.body;
@@ -53,8 +53,62 @@ router.post('/create-event',upload.single('image'),async (req,res)=>{
         });
 });
 
-router.get('/find-events', function(req, res, next) {
-  res.render('findEvents');
+// router.get('/find-events', function(req, res, next) {
+//   res.render('findEvents',{title:"Find Events"});
+// });
+ 
+router.get('/find-events', (req, res) => {
+  const dummyEvents = [
+      {
+          title: "AI Conference 2024",
+          description: "A deep dive into the latest AI trends and technologies.",
+          category: "AI/ML",
+          startdateTime: new Date('2024-11-12T09:00:00'),
+          enddateTime: new Date('2024-11-12T17:00:00'),
+          address: "123 AI St, Tech City",
+          venue: "Tech Conference Hall",
+          imageUrl: "https://via.placeholder.com/400x200",
+          eventMode: "on-site",
+          pricing: "paid",
+          ticketPrice: 100,
+          registrationLink: "https://example.com/ai-conference-2024",
+          organizer: "Tech Innovators",
+          keywords: ["AI", "Machine Learning", "Conference"]
+      },
+      {
+          title: "Web Dev Bootcamp",
+          description: "Learn the fundamentals of web development in this intensive bootcamp.",
+          category: "Web Development",
+          startdateTime: new Date('2024-11-20T10:00:00'),
+          enddateTime: new Date('2024-11-20T18:00:00'),
+          address: "456 Code Blvd, Dev City",
+          venue: "Dev Workshop Center",
+          imageUrl: "https://via.placeholder.com/400x200",
+          eventMode: "on-site",
+          pricing: "free",
+          registrationLink: "https://example.com/web-dev-bootcamp",
+          organizer: "Dev Masters",
+          keywords: ["Web Development", "HTML", "CSS", "JavaScript"]
+      },
+      {
+          title: "Cloud Computing Webinar",
+          description: "An online webinar exploring cloud computing technologies.",
+          category: "Cloud",
+          startdateTime: new Date('2024-12-01T14:00:00'),
+          enddateTime: new Date('2024-12-01T16:00:00'),
+          address: "Online",
+          venue: "Zoom Webinar",
+          imageUrl: "https://via.placeholder.com/400x200",
+          eventMode: "online",
+          pricing: "free",
+          registrationLink: "https://example.com/cloud-computing-webinar",
+          organizer: "Cloud Gurus",
+          keywords: ["Cloud", "AWS", "Azure", "GCP"]
+      }
+  ];
+  
+  res.render('findEvents', { events: dummyEvents, title:'Find Events'});
 });
+
 
 module.exports = router;
