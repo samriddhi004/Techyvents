@@ -12,6 +12,7 @@
           <% events.forEach(function(event) { %>
             <div class="col-md-4">
               <div class="card mb-4">
+                <a href="/events/<%= event._id %>"> 
                 <img src="<%= event.imageUrl %>" class="card-img-top" alt="<%= event.title %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= event.title %></h5>
@@ -22,6 +23,7 @@
                   <p><strong>Keywords:</strong> <%= event.keywords.join(', ') %></p>
                   <a href="<%= event.registrationLink %>" class="btn btn-primary">Register</a>
                 </div>
+                </a>
               </div>
             </div>
           <% }); %>

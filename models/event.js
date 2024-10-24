@@ -11,7 +11,25 @@ const eventSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['AI/ML', 'Cloud', 'Web Development', 'Mobile Development', 'Blockchain', 'Cybersecurity', 'Data Science'],
+        enum: [
+            'ai_ml',
+            'cloud',
+            'web_development',
+            'data_science',
+            'cyber_security',
+            'blockchain',
+            'iot',
+            'mobile_development',
+            'ux_ui_design',
+            'devops',
+            'gaming',
+            'healthcare_tech',
+            'fintech',
+            'education_tech',
+            'coding_competition',
+            'hackathon',
+          ], 
+        // enum: ['AI/ML', 'Cloud', 'Web Development', 'Mobile Development', 'Blockchain', 'Cybersecurity', 'Data Science'],
         required: true
     },
     startdateTime: {
@@ -30,12 +48,12 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageUrl: {
+    image: {
         type: String
     },
     eventMode: {
         type: String,
-        enum: ['online', 'on-site'],  // Online or offline event
+        enum: ['onsite','online','hybrid'],  // Online or offline event
         required: true
     },
     pricing: {
