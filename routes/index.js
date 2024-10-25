@@ -29,7 +29,7 @@ router.get('/create-event', function(req, res, next) {
 router.post('/create-event', upload.single('image'), async (req, res) => {
   const { title, description, category, startdateTime, enddateTime, address, venue, eventMode, pricing, registrationLink, organizer, keywords } = req.body;
   
-  // let imageUrl = req.file ? req.file.path : null;
+  let imageUrl = req.file ? req.file.path : null;
   let keywordArray = keywords.split(',').map(kw => kw.trim());  // Convert keywords to array
   
   const newEvent = new Event({
@@ -40,7 +40,7 @@ router.post('/create-event', upload.single('image'), async (req, res) => {
       enddateTime,
       address,
       venue,
-      image,
+      image:imageUrl,
       eventMode,
       pricing,
       ticketPrice: pricing === 'paid' ? req.body.ticketPrice : null, // Set ticketPrice only if pricing is 'paid'
