@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Techyevents</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #7c3aed;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .feature-card h3 {
+            color: #7c3aed;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+        }
+
+        .contact a {
+            color: #7c3aed;
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <div class="hero">
+        <div class="container">
+            <h1>About Techyvents</h1>
+            <p>Connecting tech enthusiasts with exciting opportunities</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section">
+            <h2>Welcome to Techyvents</h2>
+            <p>Your one-stop platform for discovering and accessing the latest tech events! We are dedicated to creating a centralized hub where technology enthusiasts, professionals, and learners can find information about upcoming events, workshops, and conferences in the tech industry.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Our Mission</h2>
+            <p>Our mission is to foster a vibrant tech community  by providing an easy-to-navigate platform that connects individuals with relevant events. Whether you're looking to enhance your skills, network with like-minded professionals, or stay updated on industry trends, we aim to be your trusted resource.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What We Offer</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Comprehensive Event Listings</h3>
+                    <p>Search and explore tech events by category, date, and location.From hackathons to webinars, we've got you covered!</p>
+                </div>
+                <div class="feature-card">
+                    <h3>User-Friendly Experience</h3>
+                    <p>Navigate effortlessly to find events that match your interests.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Community Engagement</h3>
+                    <p>Build valuable connections and collaborate with fellow tech enthusiasts.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact">
+            <h2>Get in Touch</h2>
+            <p>Join us in empowering one another to grow and innovate in the tech industry.</p>
+            <p>For inquiries, contact us at <a href="mailto:contact@techyevents.com">contact@techyevents.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

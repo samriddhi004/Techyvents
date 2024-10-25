@@ -20,6 +20,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Techyvents' });
 });
 
+router.get('/aboutUs', function(req, res, next) {
+  res.render('aboutUs', { title: 'Techyvents' });
+});
+
 router.get('/create-event', function(req, res, next) {
   res.render('createEvent',{title:'Create Event'});
 });
