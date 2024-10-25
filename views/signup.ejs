@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="/stylesheets/login_signup.css">
+    <link rel="stylesheet" href="/stylesheets/signup.css">
 </head>
 <body>
     <div class="container">
@@ -25,13 +25,33 @@
                 </div>
                 <div class="form-group">
                     <label for="interests">Your Interests</label>
-                    <select id="interests" name="interests" multiple required>
+                    <select id="inputCategories" class="form-control" name="category" required>
+                        <option selected disabled>Choose...</option>
+                        <option value="ai_ml">AI/ML</option>
+                        <option value="cloud">Cloud</option>
+                        <option value="web_development">Web Development</option>
+                        <option value="data_science">Data Science</option>
+                        <option value="cyber_security">Cyber Security</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="iot">IoT</option>
+                        <option value="mobile_development">Mobile Development</option>
+                        <option value="ux_ui_design">UX/UI Design</option>
+                        <option value="devops">DevOps</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="healthcare_tech">Healthcare Tech</option>
+                        <option value="fintech">FinTech</option>
+                        <option value="education_tech">Education Tech</option>
+                        <option value="coding_competition">Coding Competition</option>
+                        <option value="hackathon">Hackathon</option>
+                    </select>    
+                     
+                    <!-- <select id="interests" name="interests[]" multiple required>
                         <option value="web-dev">Web Development</option>
                         <option value="ai-ml">AI & ML</option>
                         <option value="data-science">Data Science</option>
                         <option value="cloud-computing">Cloud Computing</option>
                         <option value="cyber-security">Cyber Security</option>
-                    </select>
+                    </select> -->
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
                 <p>Already have an account? <a href="/login">Login</a></p>

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const multer = require('multer');
 const path = require('path');
+
+
 // const upload = multer({ dest: 'uploads/' });
 const Event = require('../models/event'); 
 const storage = multer.diskStorage({
