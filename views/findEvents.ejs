@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title><%= title %></title>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+    <div class="container">
+        <h1 class="my-4">Upcoming Events</h1>
+        <div class="row">
+          <% if (events.length > 0) { %>
+            <% events.forEach(function(event) { %>
+              <div class="col-md-4">
+                <div class="card mb-4">
+                  <img src="/<%= event.image %>" class="card-img-top img-fluid" alt="<%= event.title %>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= event.title %></h5>
+                    <p class="card-text"><%= event.description %></p>
+                    <p><strong>Category:</strong> <%= event.category %></p>
+                    <p><strong>Date:</strong> <%= new Date(event.startdateTime).toLocaleString() %> - <%= new Date(event.enddateTime).toLocaleString() %></p>
+                    <p><strong>Pricing:</strong> <%= event.pricing === 'paid' ? 'Rs' + event.ticketPrice : 'Free' %></p>
+                    <p><strong>Keywords:</strong> <%= event.keywords.join(', ') %></p>
+                    <a href="<%= event.registrationLink %>" class="btn btn-primary">Register</a>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <div class="col-12">
+              <div class="alert alert-info" role="alert">
+                No events found at the moment.
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+</body>
+</html>
+
+

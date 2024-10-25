@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Techyevents</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+            color: #374151;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.1);
+        }
+
+        .faq-section h2 {
+            color: #7c3aed;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 1.1rem;
+        }
+
+        .faq-question:hover {
+            color: #7c3aed;
+        }
+
+        .faq-question::after {
+            content: '＋';
+            font-size: 1.2rem;
+            color: #7c3aed;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            color: #6b7280;
+            font-size: 1.05rem;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .contact-support {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 3rem;
+            background: rgba(124, 58, 237, 0.03);
+            border-radius: 1.5rem;
+        }
+
+        .contact-support h2 {
+            color: #7c3aed;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-support p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .contact-support a {
+            color: #7c3aed;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-support a:hover {
+            color: #6d28d9;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .faq-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <div class="hero">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Everything you need to know about Techyevents</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="faq-section">
+            <h2>General Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What is Techyevents?</div>
+                <div class="faq-answer">
+                    Techyevents is a comprehensive platform that connects tech enthusiasts with exciting events, workshops, and conferences in the technology industry. We curate and list various tech events to help you stay updated with the latest developments in your field of interest.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I create an account?</div>
+                <div class="faq-answer">
+                    Creating an account is simple and free. Click the "Sign Up" button in the top right corner, enter your email address, create a password, and fill in your basic profile information. Once verified, you can start exploring and registering for events immediately.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Are all events on Techyevents virtual?</div>
+                <div class="faq-answer">
+                    No, Techyevents features both virtual and in-person events. Each event listing clearly specifies whether it's virtual, in-person, or hybrid. You can easily filter events based on your preferred format.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I find events in my area?</div>
+                <div class="faq-answer">
+                    You can easily find local events by using our location-based search feature. Simply enter your city or region in the search bar, and we'll show you all relevant tech events in your area. You can also set your preferred location in your profile settings.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I post my own tech event?</div>
+                <div class="faq-answer">
+                    Yes! Event organizers can post their tech events on our platform. You'll need to create an organizer account and submit your event details for review. Our team ensures all listed events meet our quality standards before they go live.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What types of events can I find on Techyevents?</div>
+                <div class="faq-answer">
+                    We feature a wide range of tech events including: conferences, workshops, hackathons, meetups, webinars, coding bootcamps, tech talks, networking events, and industry seminars. Events cover various topics like web development, AI, cybersecurity, blockchain, and more.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is registration free?</div>
+                <div class="faq-answer">
+                    Registration on Techyevents is completely free. However, individual events may have their own registration fees set by the organizers. We clearly display any associated costs on the event page before you register.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I get a refund for a cancelled event?</div>
+                <div class="faq-answer">
+                    Refund policies are set by individual event organizers. If an event is cancelled, the organizer will typically process refunds automatically. You can check the specific refund policy on the event page or contact the organizer directly through our platform.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I get notifications about upcoming events?</div>
+                <div class="faq-answer">
+                    Yes! You can set up email notifications for events that match your interests. Simply update your preferences in your profile settings to receive alerts about new events, early bird tickets, or events from specific organizers.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I become a featured organizer?</div>
+                <div class="faq-answer">
+                    Featured organizer status is granted to consistently high-performing event creators. To qualify, maintain a strong track record of well-organized events with positive attendee feedback. Contact our partnership team for more information about the program.
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-support">
+            <h2>Still have questions?</h2>
+            <p>Our support team is here to help you with any other questions you might have.</p>
+            <a href="mailto:support@techyevents.com">support@techyevents.com</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

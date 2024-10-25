@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= event.title %></title>
+</head>
+<body>
+    <h1><%= event.title %></h1>
+    <img src="<%= event.posterUrl %>" alt="<%= event.title %> Poster">
+    <p><strong>Date:</strong> <%= event.date %></p>
+    <p><strong>Description:</strong> <%= event.description %></p>
+    <p><strong>Location:</strong> <%= event.location %></p>
+    <a href="/findEvents">Back to Events</a>
+</body>
+</html>
