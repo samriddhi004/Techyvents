@@ -18,23 +18,11 @@ const upload = multer({ storage: storage });
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try {
-    const today = new Date();
-    const threeDaysFromNow = new Date(today);
-    threeDaysFromNow.setDate(today.getDate() + 3);
-
-    // Fetch trending events occurring in the next 3 days
-    const trendingEvents = await Event.find({
-        startDateTime: {
-            $gte: today,
-            $lte: threeDaysFromNow
-        }
-    }).sort({ startDateTime: 1 });
-
-    // Render index page with trending events
-    res.render('index', { title:"Techyvents", events: trendingEvents });
+    const events = await Event.find(); // Fetch all events from the database
+    res.render('index', { events, title: 'Techyvents' });
 } catch (error) {
-    console.error('Error fetching trending events:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error fetching events:", error);
+    res.status(500).send("Internal Server Error");
 }
 });
 
