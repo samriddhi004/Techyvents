@@ -3,20 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-var mongoose = require("mongoose")
+// var mongoose = require("mongoose")
+// mongoose.connect('mongodb+srv://kritisubedi011:1234@cluster0.n3ncc.mongodb.net/')
+//   .then(() => console.log('Connected!'));
 mongoose.connect('mongodb+srv://kritisubedi011:1234@cluster0.n3ncc.mongodb.net/')
   .then(() => console.log('Connected!'));
-  // techyvents.myhea.mongodb.net
-  // var mongoose = require("mongoose")
-  // mongoose.connect('techyvents.myhea.mongodb.net')
-  //   .then(() => console.log('Connected!'));
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
