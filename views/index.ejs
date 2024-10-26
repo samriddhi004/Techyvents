@@ -151,15 +151,15 @@
                                 <div class="event-meta">
                                     <div class="event-date">
                                         <i class="fas fa-calendar"></i>
-                                        <%= new Date(Date.parse(event.startDateTime)).toLocaleTimeString('en-US', {
-                                            hour: '2-digit',
-                                            minute: '2-digit'
+                                        <%= new Date(Date.parse(event.startdateTime)).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
                                         }) %>
                                         
                                     </div>
                                     <div class="event-time">
                                         <i class="fas fa-clock"></i>
-                                        <%= new Date(event.startDateTime).toLocaleTimeString('en-US', {
+                                        <%= new Date(event.startdateTime).toLocaleTimeString('en-US', {
                                             hour: '2-digit',
                                             minute: '2-digit'
                                         }) %>
