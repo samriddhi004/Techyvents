@@ -16,8 +16,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Techyvents' });
+router.get('/', async function(req, res, next) {
+  try {
+    const events = await Event.find(); // Fetch all events from the database
+    res.render('index', { events, title: 'Techyvents' });
+} catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).send("Internal Server Error");
+}
 });
 
 router.get('/aboutUs', function(req, res, next) {

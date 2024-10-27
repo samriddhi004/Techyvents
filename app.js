@@ -13,7 +13,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // var mongoose = require("mongoose")
-// mongoose.connect('mongodb://127.0.0.1:27017/test')
+// mongoose.connect('mongodb+srv://kritisubedi011:1234@cluster0.n3ncc.mongodb.net/')
 //   .then(() => console.log('Connected!'));
 mongoose.connect('mongodb+srv://kritisubedi011:1234@cluster0.n3ncc.mongodb.net/')
   .then(() => console.log('Connected!'));
@@ -48,5 +48,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

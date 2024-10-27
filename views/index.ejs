@@ -20,58 +20,181 @@
 
             <!-- Categories Section -->
             <div class="categories">
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-code"></i>
+                <a href="/events?keywords=Coding,AI/ML">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span>Coding</span>
                     </div>
-                    <span>Coding</span>
+                </a>
+                <a href="/events?keywords=AI/ML,Networks">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <span>AI/ML</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Networks,Web Dev">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <span>Networks</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Web Dev,Hardware">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <span>Web Dev</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Hardware,Data Science">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <span>Hardware</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Data Science,Cloud">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <span>Data Science</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Cloud,Community">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <span>Cloud</span>
+                    </div>
+                </a>
+                <a href="/events?keywords=Community,Coding">
+                    <div class="category-item">
+                        <div class="icon-circle">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Community</span>
+                    </div>
+                </a>
+            </div>
+            
+            
+<!-- 
+    <div class="trending-section">
+        <div class="container">
+            <h1 class="my-4">Upcoming Events</h1>
+            <div class="row">
+                <% if (events.length > 0) { %>
+                    <% events.forEach(function(event) { %>
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img src="/<%= event.image %>" class="card-img-top img-fluid" alt="<%= event.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= event.title %></h5>
+                                    <p class="card-text"><%= event.description %></p>
+                                    <p><strong>Category:</strong> <%= event.category %></p>
+                                    <p><strong>Date:</strong> <%= new Date(event.startdateTime).toLocaleString() %> - <%= new Date(event.enddateTime).toLocaleString() %></p>
+                                    <p><strong>Pricing:</strong> <%= event.pricing === 'paid' ? 'Rs' + event.ticketPrice : 'Free' %></p>
+                                    <p><strong>Keywords:</strong> <%= event.keywords.join(', ') %></p>
+                                    <a href="<%= event.registrationLink %>" class="btn btn-primary">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            No events found at the moment.
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div> -->
+        
+        <!-- Trending Events Section -->
+        <!-- <div class="trending-section">
+            <div class="container">
+                <h2>Trending Events</h2>
+                <div class="trending-cards">
+                    <% events.forEach(function(event) { %>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="/<%= event.image %>" alt="<%= event.title %>">
+                            </div>
+                            <div class="event-content">
+                                <h3><%= event.title %></h3>
+                                <p><%= event.description %></p>
+                                <div class="event-tags">
+                                    <% event.keywords.forEach(function(keyword) { %>
+                                        <span><%= keyword %></span>
+                                    <% }); %>
+                                </div>
+                                <div class="event-info">
+                                    <span class="event-date"><%= new Date(event.startdateTime).toLocaleDateString() %> - <%= new Date(event.enddateTime).toLocaleDateString() %></span>
+                                    <span class="event-price"><%= event.pricing === 'paid' ? 'Rs ' + event.ticketPrice : 'Free' %></span>
+                                </div>
+                                <a href="<%= event.registrationLink %>" class="register-btn">Register</a>
+                            </div>
+                        </div>
+                    <% }); %>
                 </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <span>AI/ML</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <span>Networks</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <span>Web Dev</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <span>Hardware</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <span>Data Science</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <span>Cloud</span>
-                </div>
-                <div class="category-item">
-                    <div class="icon-circle">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <span>Community</span>
+            </div>
+        </div> -->
+
+        <div class="trending-section">
+            <div class="container">
+                <h2 class="section-title">Trending Events</h2>
+                <div class="trending-cards">
+                    <% events.forEach(function(event) { %>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="/<%= event.image %>" alt="<%= event.title %>">
+                                <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
+                                    <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title"><%= event.title %></h3>
+                                <p class="event-description"><%= event.description %></p>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <%= new Date(Date.parse(event.startdateTime)).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
+                                        }) %>
+                                        
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <%= new Date(event.startdateTime).toLocaleTimeString('en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }) %>
+                                    </div>
+                                </div>
+                                <div class="event-tags">
+                                    <% event.keywords.forEach(function(keyword) { %>
+                                        <span class="tag"><%= keyword %></span>
+                                    <% }); %>
+                                </div>
+                                <a href="<%= event.registrationLink %>" class="register-btn">Register Now</a>
+                            </div>
+                        </div>
+                    <% }); %>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
+
 </html>
 
 <!-- public/styles.css -->
@@ -123,7 +246,13 @@ body {
     gap: 1rem;
     padding: 0 1rem;
 }
-
+.categories a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; 
+    display: block; /* Make the anchor fill the category item */
+    padding: 10px; 
+    
+}
 .category-item {
     display: flex;
     flex-direction: column;
@@ -159,7 +288,206 @@ body {
     color: #374151;
     font-weight: 500;
 }
+/* .trending-section {
+            margin: 40px 0;
+        }
+        .trending-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .event-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+        }
+        .event-image img {
+            width: 100%;
+            height: auto;
+        }
+        .event-content {
+            padding: 15px;
+        }
+        .event-tags span {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            padding: 3px 8px;
+            margin: 3px 5px 0 0;
+            font-size: 0.8em;
+        }
+        .event-info {
+            font-size: 0.9em;
+            color: #555;
+            margin: 10px 0;
+        }
+        .register-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        } */
 
+        .trending-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+}
+
+.trending-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.event-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.price-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-tag.free {
+    background: #4ade80;
+    color: white;
+}
+
+.price-tag.paid {
+    background: #3b82f6;
+    color: white;
+}
+
+.event-content {
+    padding: 1.5rem;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.event-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.event-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.event-date, .event-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    background: #e5e7eb;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.register-btn {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.register-btn:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .trending-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-card {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
 /* Responsive Design */
 @media (max-width: 1200px) {
     .categories {
@@ -192,4 +520,5 @@ body {
         font-size: 1.75rem;
     }
 }
+
 </style>
