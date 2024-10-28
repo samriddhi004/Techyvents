@@ -163,7 +163,10 @@
                             </div>
                             <div class="event-content">
                                 <h3 class="event-title"><%= event.title %></h3>
-                                <p class="event-description"><%= event.description %></p>
+                                <div class="event-description-preview"><%= event.descriptionPreview %></div>
+                                <div class="event-description-full" style="display: none;"><%= event.description %></div>
+                                <a href="#" class="see-more-link">See more</a>
+                                <!-- <p class="event-description"><%= event.description %></p> -->
                                 <div class="event-meta">
                                     <div class="event-date">
                                         <i class="fas fa-calendar"></i>
@@ -522,3 +525,17 @@ body {
 }
 
 </style>
+
+<script>
+   const seeLinkElements = document.querySelectorAll('.see-more-link');
+   seeLinkElements.forEach(link=>{
+    link.addEventListener('click', (event) =>{
+        event.preventDefault();
+        const card = event.target.closest('.event-card');
+        const previewElement = card.querySelector('.event-description-preview');
+        const fullElement = card.querySelector('.event-description-full');
+        previewElement.style.display = 'none';
+        fullElement.style.display = 'block';
+    });
+   });
+</script>

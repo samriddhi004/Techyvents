@@ -15,10 +15,17 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+
+
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try {
     const events = await Event.find(); // Fetch all events from the database
+    events.forEach(event =>{
+      event.descriptionPreview = event.description.substring(0,100);
+      event.description =event.description;
+    })
     res.render('index', { events, title: 'Techyvents' });
 } catch (error) {
     console.error("Error fetching events:", error);
