@@ -474,11 +474,26 @@ body {
 .register-btn:hover {
     background: #2563eb;
 }
+.see-more-link {
+  display: inline;
+  color: black;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+  font-weight: 800;
+  text-decoration: none; 
+  font-style: italic;
+}
+
+.see-more-link:hover {
+  color: #2563eb;
+}
 
 @media (max-width: 768px) {
     .trending-cards {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+
     
     .section-title {
         font-size: 2rem;
@@ -522,6 +537,8 @@ body {
     .icon-circle i {
         font-size: 1.75rem;
     }
+
+
 }
 
 </style>

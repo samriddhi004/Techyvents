@@ -23,7 +23,7 @@ router.get('/', async function(req, res, next) {
   try {
     const events = await Event.find(); // Fetch all events from the database
     events.forEach(event =>{
-      event.descriptionPreview = event.description.substring(0,100);
+      event.descriptionPreview = event.description.substring(0,150);
       event.description =event.description;
     })
     res.render('index', { events, title: 'Techyvents' });
