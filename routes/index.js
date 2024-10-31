@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const authRoutes = require('./auth');
-router.use('/auth', authRoutes);
+const authRouter = require('./auth');
+const verifyToken = require('../middleware/authMiddleware');
+
 // const upload = multer({ dest: 'uploads/' });
 const Event = require('../models/event'); 
 const storage = multer.diskStorage({
@@ -41,11 +42,12 @@ router.get('/faq', function(req, res, next) {
   res.render('faq', { title: 'Techyvents' });
 });
 
-router.get('/create-event', function(req, res, next) {
+router.use('/auth', authRouter);
+router.get('/create-event',verifyToken, function(req, res, next) {
   res.render('createEvent',{title:'Create Event'});
 });
 
-router.post('/create-event', upload.single('image'), async (req, res) => {
+router.post('/create-event',verifyToken, upload.single('image'), async (req, res) => {
   const { title, description, category, startdateTime, enddateTime, address, venue, eventMode, pricing, registrationLink, organizer, keywords } = req.body;
   
   let imageUrl = req.file ? req.file.path : null;
@@ -163,10 +165,6 @@ router.get('/events/:id', async (req, res) => {
 });
 
 
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Log In' });
-});
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'Sign Up' });
-});
+
+
 module.exports = router;
