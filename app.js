@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const User = require('./models/user'); 
 
-
-
 var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -27,6 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+
+//middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
