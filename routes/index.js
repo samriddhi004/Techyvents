@@ -21,6 +21,7 @@ const upload = multer({ storage: storage });
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+  console.log('Auth status:', res.locals.isAuthenticated); // Debug log
   try {
     const events = await Event.find(); // Fetch all events from the database
     events.forEach(event =>{

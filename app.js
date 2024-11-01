@@ -7,6 +7,9 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const User = require('./models/user'); 
+const verifyToken = require('./middleware/authMiddleware');
+
+
 
 var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
@@ -33,6 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads'));
 
+app.use(verifyToken);
 
 app.use('/', indexRouter);
 app.use(authRouter);

@@ -176,6 +176,123 @@
             color: #6C2FFF;
         }
 
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .auth-link {
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .login {
+            color: #6C2FFF;
+            border: 1px solid #6C2FFF;
+        }
+
+        .login:hover {
+            background-color: #6C2FFF;
+            color: white;
+        }
+
+        .signup {
+            background-color: #6C2FFF;
+            color: white;
+        }
+
+        .signup:hover {
+            background-color: #5825CC;
+        }
+
+        /* New styles for user menu */
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #6C2FFF;
+            color: #6C2FFF;
+        }
+
+        .user-button:hover {
+            background-color: #f3f4f6;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            color: #4b5563;
+            padding: 0.625rem 1.25rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f3f4f6;
+            color: #6C2FFF;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 0.5rem 0;
+        }
+
+        .logout-form {
+            margin: 0;
+            padding: 0;
+        }
+
+        .logout-button {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.625rem 1.25rem;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-button:hover {
+            background-color: #f3f4f6;
+            color: #6C2FFF;
+        }
+
         @media (max-width: 1280px) {
             .search-input {
                 width: 200px;
@@ -226,10 +343,40 @@
                     <input type="search" placeholder="Search events..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <div class="auth-buttons">
-                    <a href="/auth/login" class="auth-link login">Log In</a>
-                    <a href="/auth/signup" class="auth-link signup">Sign Up</a>
-                </div>
+                <%= locals.isAuthenticated %>
+                <% if(locals.isAuthenticated) { %>
+                    <div class="user-menu">
+                        <div class="user-button">
+                            <i class="fas fa-user" style="font-size: 1.2rem;"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="/profile" class="user-dropdown-item">
+                                <i class="fas fa-user-circle"></i>
+                                Profile
+                            </a>
+                            <a href="/my-events" class="user-dropdown-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                My Events
+                            </a>
+                            <a href="/settings" class="user-dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="divider"></div>
+                            <form action="/auth/logout" method="POST" class="logout-form">
+                                <button type="submit" class="logout-button">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="auth-buttons">
+                        <a href="/auth/login" class="auth-link login">Log In</a>
+                        <a href="/auth/signup" class="auth-link signup">Sign Up</a>
+                    </div>
+                <% } %>
             </div>
         </div>
     </nav>

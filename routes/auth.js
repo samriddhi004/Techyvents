@@ -64,6 +64,7 @@ router.post('/auth/signup', async (req, res) => {
         const token = jwt.sign({ userId :user._id}, process.env.JWT_SECRET,{
             expiresIn:'11h',
         });
+        console.log('Setting token:', token);
         res.cookie('token', token, { httpOnly: true, maxAge: 11 * 60 * 60 * 1000 }); // 11 hours
         res.redirect('/');
     } catch(error){
@@ -71,4 +72,9 @@ router.post('/auth/signup', async (req, res) => {
     }
   })
 
+
+  router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
+  });
   module.exports = router;
