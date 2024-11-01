@@ -7,6 +7,7 @@ const verifyToken = require('../middleware/authMiddleware');
 
 // const upload = multer({ dest: 'uploads/' });
 const Event = require('../models/event'); 
+const { title } = require('process');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, 'uploads/');  // Folder where images will be saved
@@ -20,8 +21,11 @@ const upload = multer({ storage: storage });
 
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/',verifyToken, async function(req, res, next) {
   console.log('Auth status:', res.locals.isAuthenticated); // Debug log
+  if(!res.locals.isAuthenticated){
+    res.render('landing',{title:'TechyVents'});
+  } else{
   try {
     const events = await Event.find(); // Fetch all events from the database
     events.forEach(event =>{
@@ -32,7 +36,7 @@ router.get('/', async function(req, res, next) {
 } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("Internal Server Error");
-}
+}}
 });
 
 router.get('/aboutUs', function(req, res, next) {

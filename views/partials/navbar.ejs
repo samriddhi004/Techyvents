@@ -336,14 +336,15 @@
                     </div>
                     <a href="/faq" class="nav-link">FAQ</a>
                 </div>
-            </div>
-
+            </div>               
             <div class="nav-right">
+                <% if(locals.isAuthenticated) { %> 
                 <form class="search-box">
                     <input type="search" placeholder="Search events..." class="search-input">
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                <%= locals.isAuthenticated %>
+                <% } %>
+                <!-- <%= locals.isAuthenticated %> -->
                 <% if(locals.isAuthenticated) { %>
                     <div class="user-menu">
                         <div class="user-button">
