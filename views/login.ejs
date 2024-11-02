@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - TechyVents</title>
     <link rel="stylesheet" href="/stylesheets/login_signup.css">
 </head>
 <body>
+    <header class="header">
+        <h1 class="logo">TechyVents</h1>
+        <p class="motto">"Your gateway to tech events around the world"</p>
+    </header>
+
+    <div class="floating-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+    </div>
+
     <div class="container">
         <div class="login-card">
             <h2>Login</h2>
-            <form action="/login" method="POST">
+            <form action="/auth/login" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>

@@ -7,13 +7,22 @@
     <link rel="stylesheet" href="/stylesheets/signup.css">
 </head>
 <body>
+  <header class="header">
+    <h1 class="logo">TechyVents</h1>
+    <p class="motto">"Your gateway to tech events around the world"</p>
+</header>
+<div class="floating-elements">
+  <div class="floating-element element-1"></div>
+  <div class="floating-element element-2"></div>
+  <div class="floating-element element-3"></div>
+</div>
     <div class="container">
         <div class="signup-card">
             <h2>Create an Account</h2>
-            <form action="/signup" method="POST">
+            <form action="/auth/signup" method="POST">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="username">Full Name</label>
+                    <input type="text" id="name" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -23,96 +32,65 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="interests">Your Interests</label>
-                    <select id="inputCategories" class="form-control" name="category" required>
-                        <option selected disabled>Choose...</option>
-                        <option value="ai_ml">AI/ML</option>
-                        <option value="cloud">Cloud</option>
-                        <option value="web_development">Web Development</option>
-                        <option value="data_science">Data Science</option>
-                        <option value="cyber_security">Cyber Security</option>
-                        <option value="blockchain">Blockchain</option>
-                        <option value="iot">IoT</option>
-                        <option value="mobile_development">Mobile Development</option>
-                        <option value="ux_ui_design">UX/UI Design</option>
-                        <option value="devops">DevOps</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="healthcare_tech">Healthcare Tech</option>
-                        <option value="fintech">FinTech</option>
-                        <option value="education_tech">Education Tech</option>
-                        <option value="coding_competition">Coding Competition</option>
-                        <option value="hackathon">Hackathon</option>
-                    </select>     -->
-                     
-                    <!-- <select id="interests" name="interests[]" multiple required>
-                        <option value="web-dev">Web Development</option>
-                        <option value="ai-ml">AI & ML</option>
-                        <option value="data-science">Data Science</option>
-                        <option value="cloud-computing">Cloud Computing</option>
-                        <option value="cyber-security">Cyber Security</option>
-                    </select> -->
-                <!-- </div> -->
                 <div class="form-group">
                     <label for="interests">Your Interests</label>
                     <div class="interest-checkboxes">
                       <div class="checkbox-item">
-                        <input type="checkbox" id="ai-ml" name="interests[]" value="ai_ml">
+                        <input type="checkbox" id="ai-ml" name="interests[]" value="AI/ML">
                         <label for="ai-ml">AI/ML</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="cloud" name="interests[]" value="cloud">
+                        <input type="checkbox" id="cloud" name="interests[]" value="Cloud">
                         <label for="cloud">Cloud</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="web-dev" name="interests[]" value="web_dev">
+                        <input type="checkbox" id="web-dev" name="interests[]" value="Web Development">
                         <label for="web-dev">Web Development</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="cybersecurity" name="interests[]" value="cybersecurity">
+                        <input type="checkbox" id="cybersecurity" name="interests[]" value="Cybersecurity">
                         <label for="cybersecurity">Cybersecurity</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="data-science" name="interests[]" value="data_science">
+                        <input type="checkbox" id="data-science" name="interests[]" value="Data Science">
                         <label for="data-science">Data Science</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="blockchain" name="interests[]" value="blockchain">
+                        <input type="checkbox" id="blockchain" name="interests[]" value="Blockchain">
                         <label for="blockchain">Blockchain</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="iot" name="interests[]" value="iot">
+                        <input type="checkbox" id="iot" name="interests[]" value="IoT (Internet of Things)">
                         <label for="iot">IoT (Internet of Things)</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="robotics" name="interests[]" value="robotics">
+                        <input type="checkbox" id="robotics" name="interests[]" value="Robotics">
                         <label for="robotics">Robotics</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="vr-ar" name="interests[]" value="vr_ar">
+                        <input type="checkbox" id="vr-ar" name="interests[]" value="Virtual Reality / Augmented Reality">
                         <label for="vr-ar">Virtual Reality / Augmented Reality</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="devops" name="interests[]" value="devops">
+                        <input type="checkbox" id="devops" name="interests[]" value="DevOps">
                         <label for="devops">DevOps</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="gaming" name="interests[]" value="gaming">
+                        <input type="checkbox" id="gaming" name="interests[]" value="Game Development">
                         <label for="gaming">Game Development</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="quantum-computing" name="interests[]" value="quantum_computing">
+                        <input type="checkbox" id="quantum-computing" name="interests[]" value="Quantum Computing">
                         <label for="quantum-computing">Quantum Computing</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="ui-ux" name="interests[]" value="ui_ux">
+                        <input type="checkbox" id="ui-ux" name="interests[]" value="UI/UX Design">
                         <label for="ui-ux">UI/UX Design</label>
                       </div>
                       <div class="checkbox-item">
-                        <input type="checkbox" id="big-data" name="interests[]" value="big_data">
+                        <input type="checkbox" id="big-data" name="interests[]" value="Big Data">
                         <label for="big-data">Big Data</label>
                       </div>
-                      <!-- Add more as needed -->
                     </div>
                   </div>
                   

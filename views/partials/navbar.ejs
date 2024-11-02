@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title><%=title%></title>
@@ -176,6 +176,123 @@
             color: #6C2FFF;
         }
 
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .auth-link {
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .login {
+            color: #6C2FFF;
+            border: 1px solid #6C2FFF;
+        }
+
+        .login:hover {
+            background-color: #6C2FFF;
+            color: white;
+        }
+
+        .signup {
+            background-color: #6C2FFF;
+            color: white;
+        }
+
+        .signup:hover {
+            background-color: #5825CC;
+        }
+
+        /* New styles for user menu */
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #6C2FFF;
+            color: #6C2FFF;
+        }
+
+        .user-button:hover {
+            background-color: #f3f4f6;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            color: #4b5563;
+            padding: 0.625rem 1.25rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f3f4f6;
+            color: #6C2FFF;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 0.5rem 0;
+        }
+
+        .logout-form {
+            margin: 0;
+            padding: 0;
+        }
+
+        .logout-button {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.625rem 1.25rem;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-button:hover {
+            background-color: #f3f4f6;
+            color: #6C2FFF;
+        }
+
         @media (max-width: 1280px) {
             .search-input {
                 width: 200px;
@@ -200,7 +317,7 @@
                     <a href="/find-events" class="nav-link">Find Events</a>
                     <a href="/create-event" class="nav-link">Create Events</a>
                     <a href="/aboutUs" class="nav-link">About Us</a>
-                    <!-- <div class="dropdown">
+                     <div class="dropdown">
                         <a href="#" class="nav-link">Resources</a>
                         <div class="dropdown-content">
                             <a href="/aboutUs" class="dropdown-item">About Us</a>
@@ -208,7 +325,348 @@
                             <a href="/help" class="dropdown-item">Help Center</a>
                             <a href="/guidelines" class="dropdown-item">Guidelines</a>
                         </div>
-                    </div> -->
+                    </div> 
+                    <div class="dropdown">
+                        <a href="#" class="nav-link">Community</a>
+                        <div class="dropdown-content">
+                            <a href="/forums" class="dropdown-item">Forums</a>
+                            <a href="/partners" class="dropdown-item">Partners</a>
+                            <a href="/sponsors" class="dropdown-item">Sponsors</a>
+                        </div>
+                    </div>
+                    <a href="/faq" class="nav-link">FAQ</a>
+                </div>
+            </div>               
+            <div class="nav-right">
+                <% if(locals.isAuthenticated) { %> 
+                <form class="search-box">
+                    <input type="search" placeholder="Search events..." class="search-input">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+                <% } %>
+                 <%= locals.isAuthenticated %> 
+                <% if(locals.isAuthenticated) { %>
+                    <div class="user-menu">
+                        <div class="user-button">
+                            <i class="fas fa-user" style="font-size: 1.2rem;"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="/profile" class="user-dropdown-item">
+                                <i class="fas fa-user-circle"></i>
+                                Profile
+                            </a>
+                            <a href="/my-events" class="user-dropdown-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                My Events
+                            </a>
+                            <a href="/settings" class="user-dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="divider"></div>
+                            <form action="/auth/logout" method="POST" class="logout-form">
+                                <button type="submit" class="logout-button">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="auth-buttons">
+                        <a href="/auth/login" class="auth-link login">Log In</a>
+                        <a href="/auth/signup" class="auth-link signup">Sign Up</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhanced Navbar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .navbar {
+            /* background: linear-gradient(to right, #2563eb, #ab97d6); */
+            background: linear-gradient(135deg, #8e89d1, #6D28D9);
+            padding: 1rem 2.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(108, 47, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            width: 280px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .login {
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .signup {
+            background: white;
+            color: #6C2FFF;
+        }
+
+        .signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .user-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .user-menu:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-item {
+            color: #4b5563;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .user-dropdown-item:hover {
+            background: #f3f4f6;
+            color: #6C2FFF;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0.5rem 0;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: white;
+            min-width: 200px;
+            border-radius: 12px;
+            padding: 0.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-item {
+            color: #4b5563;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            display: block;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: #f3f4f6;
+            color: #6C2FFF;
+        }
+
+        @media (max-width: 1024px) {
+            .search-input {
+                width: 200px;
+            }
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="/" class="brand">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    TechyVents
+                </a>
+                <div class="nav-links">
+                    <% if(locals.isAuthenticated) { %>
+                    <a href="/find-events" class="nav-link">Find Events</a>
+                    <a href="/create-event" class="nav-link">Create Events</a>
+                    <% } %>
+                    <a href="/aboutUs" class="nav-link">About Us</a>
                     <div class="dropdown">
                         <a href="#" class="nav-link">Community</a>
                         <div class="dropdown-content">
@@ -220,16 +678,44 @@
                     <a href="/faq" class="nav-link">FAQ</a>
                 </div>
             </div>
-
             <div class="nav-right">
-                <form class="search-box">
+                <% if(locals.isAuthenticated) { %>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
                     <input type="search" placeholder="Search events..." class="search-input">
-                    <button type="submit" class="search-button">Search</button>
-                </form>
-                <div class="auth-buttons">
-                    <a href="/login" class="auth-link login">Log In</a>
-                    <a href="/signup" class="auth-link signup">Sign Up</a>
                 </div>
+                <div class="user-menu">
+                    <div class="user-button">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="/profile" class="user-dropdown-item">
+                            <i class="fas fa-user-circle"></i>
+                            Profile
+                        </a>
+                        <a href="/my-events" class="user-dropdown-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            My Events
+                        </a>
+                        <a href="/settings" class="user-dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </a>
+                        <div class="divider"></div>
+                        <form action="/auth/logout" method="POST">
+                            <button type="submit" class="user-dropdown-item" style="width: 100%; border: none; background: none; cursor: pointer; text-align: left;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="auth-buttons">
+                    <a href="/auth/login" class="auth-link login">Log In</a>
+                    <a href="/auth/signup" class="auth-link signup">Sign Up</a>
+                </div>
+                <% } %>
             </div>
         </div>
     </nav>
