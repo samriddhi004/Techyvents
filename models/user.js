@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         ],
         default: []
     },
-    createdAt: { type: Date, default: Date.now } 
+    createdAt: { type: Date, default: Date.now },
+    bookmarkedEvents:[{type:mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = User;    bookmarketEvents:[{type:mongoose.Schema.Types.ObjectId, ref: 'Event'}]

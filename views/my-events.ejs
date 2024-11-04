@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookmarked Events - TechyVents</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    
+    <div class="container py-8">
+        <h1 class="text-3xl font-bold mb-6">My Bookmarked Events</h1>
+        
+        <div class="trending-cards">
+            <% if (events && events.length > 0) { %>
+                <% events.forEach(function(event) { %>
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="/<%= event.image %>" alt="<%= event.title %>">
+                            <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
+                                <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
+                            </div>
+                            <button 
+                                class="bookmark-btn active"
+                                data-event-id="<%= event._id %>"
+                                aria-label="Remove bookmark"
+                            >
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <!-- Rest of your event card content -->
+                        <div class="event-content">
+                            <!-- Your existing event content structure -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="text-center py-8">
+                    <i class="fas fa-bookmark text-4xl text-gray-400 mb-4"></i>
+                    <h2 class="text-xl font-semibold text-gray-600 mb-2">No Bookmarked Events</h2>
+                    <p class="text-gray-500">You haven't bookmarked any events yet.</p>
+                    <a href="/" class="inline-block mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Browse Events
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+    <script>
+        // Add this to your existing frontend JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle bookmark button clicks
+            document.querySelectorAll('.bookmark-btn').forEach(button => {
+                button.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    const eventId = this.dataset.eventId;
+                    
+                    try {
+                        const response = await fetch('/toggle-bookmark', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ eventId })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.status === 'removed') {
+                            // If we're on the my-events page, remove the card
+                            if (window.location.pathname === '/my-events') {
+                                const card = this.closest('.event-card');
+                                card.remove();
+                                
+                                // Check if there are any cards left
+                                const remainingCards = document.querySelectorAll('.event-card');
+                                if (remainingCards.length === 0) {
+                                    location.reload(); // Reload to show empty state
+                                }
+                            } else {
+                                this.classList.remove('active');
+                            }
+                        } else {
+                            this.classList.add('active');
+                        }
+                    } catch (error) {
+                        console.error('Error toggling bookmark:', error);
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <style>
+    /* Add these styles to your existing CSS */
+    .bookmark-btn {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .bookmark-btn i {
+        font-size: 1.2rem;
+        color: #666;
+        transition: all 0.2s ease;
+    }
+
+    .bookmark-btn:hover {
+        background: white;
+        transform: scale(1.05);
+    }
+
+    .bookmark-btn.active i {
+        color: #3b82f6;
+    }
+
+    /* Add this to your existing event card styles */
+    .event-image {
+        position: relative;
+    }
+    </style>

@@ -169,7 +169,46 @@ router.get('/events/:id', async (req, res) => {
   }
 });
 
+router.post('/toggle-bookmark', verifyToken, async (req, res) => {
+  try {
+      const { eventId } = req.body;
+      const user = await User.findById(req.user._id);
+
+      // Check if the event is already bookmarked
+      const isBookmarked = user.bookmarkedEvents.includes(eventId);
+
+      if (isBookmarked) {
+          // Remove bookmark if it exists
+          user.bookmarkedEvents.pull(eventId);
+          await user.save();
+          res.json({ status: 'removed' });
+      } else {
+          // Add new bookmark if it doesn't exist
+          user.bookmarkedEvents.push(eventId);
+          await user.save();
+          res.json({ status: 'added' });
+      }
+  } catch (error) {
+      console.error('Error toggling bookmark:', error);
+      res.status(500).json({ error: 'Failed to toggle bookmark' });
+  }
+});
 
 
+router.get('/my-events', verifyToken, async (req, res) => {
+  try {
+      const user = await User.findById(req.user._id).populate('bookmarkedEvents').sort({ createdAt: -1 });
+
+      const events = user.bookmarkedEvents;
+      
+      res.render('my-events', { 
+          events,
+          user: req.user
+      });
+  } catch (error) {
+      console.error('Error fetching bookmarked events:', error);
+      res.status(500).send('Error fetching bookmarked events');
+  }
+});
 
 module.exports = router;
