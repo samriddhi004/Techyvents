@@ -32,7 +32,7 @@ router.get('/',verifyToken, async function(req, res, next) {
       event.descriptionPreview = event.description.substring(0,150);
       event.description =event.description;
     })
-    res.render('index', { events, title: 'Techyvents' });
+    res.render('index', { events, title: 'Techyvents', userId: res.locals.userId });
 } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("Internal Server Error");
@@ -169,46 +169,27 @@ router.get('/events/:id', async (req, res) => {
   }
 });
 
-router.post('/toggle-bookmark', verifyToken, async (req, res) => {
-  try {
-      const { eventId } = req.body;
-      const user = await User.findById(req.user._id);
-
-      // Check if the event is already bookmarked
-      const isBookmarked = user.bookmarkedEvents.includes(eventId);
-
-      if (isBookmarked) {
-          // Remove bookmark if it exists
-          user.bookmarkedEvents.pull(eventId);
-          await user.save();
-          res.json({ status: 'removed' });
-      } else {
-          // Add new bookmark if it doesn't exist
-          user.bookmarkedEvents.push(eventId);
-          await user.save();
-          res.json({ status: 'added' });
-      }
-  } catch (error) {
-      console.error('Error toggling bookmark:', error);
-      res.status(500).json({ error: 'Failed to toggle bookmark' });
-  }
-});
-
 
 router.get('/my-events', verifyToken, async (req, res) => {
   try {
-      const user = await User.findById(req.user._id).populate('bookmarkedEvents').sort({ createdAt: -1 });
+    // Fetch the authenticated user
+    const user = await User.findById(res.locals.userId);
 
-      const events = user.bookmarkedEvents;
-      
-      res.render('my-events', { 
-          events,
-          user: req.user
-      });
-  } catch (error) {
-      console.error('Error fetching bookmarked events:', error);
-      res.status(500).send('Error fetching bookmarked events');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // Fetch the bookmarked events from the database
+    const bookmarkedEvents = await Event.find({ _id: { $in: user.bookmarkedEvents } });
+
+    res.render('my-events', {
+      title: 'My Bookmarked Events',
+      bookmarkedEvents,
+      userId: res.locals.userId
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching bookmarked events');
   }
 });
-
 module.exports = router;

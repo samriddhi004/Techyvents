@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechyVents</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -154,12 +155,15 @@
                 <h2 class="section-title">Trending Events</h2>
                 <div class="trending-cards">
                     <% events.forEach(function(event) { %>
-                        <div class="event-card">
+                        <div class="event-card" data-event-id="<%= event._id %>">
                             <div class="event-image">
                                 <img src="/<%= event.image %>" alt="<%= event.title %>">
                                 <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
                                     <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
                                 </div>
+                                <button class="bookmark-btn" data-is-bookmarked="false" onclick="toggleBookmark(this, '<%= event._id %>')">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
                             </div>
                             <div class="event-content">
                                 <h3 class="event-title"><%= event.title %></h3>
@@ -489,6 +493,55 @@ body {
   color: #2563eb;
 }
 
+
+.bookmark-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.bookmark-btn:hover {
+    transform: scale(1.1);
+}
+
+.bookmark-btn i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.bookmark-btn.active i {
+    color: #3b82f6;
+}
+
+/* Add this if you want to style the bookmarked events page differently */
+.my-events-section {
+    background-color: #f8f9fa;
+    padding: 4rem 0;
+}
+
+.my-events-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.no-bookmarks-message {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
 @media (max-width: 768px) {
     .trending-cards {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -541,6 +594,7 @@ body {
 
 }
 
+
 </style>
 
 <script>
@@ -555,4 +609,64 @@ body {
         fullElement.style.display = 'block';
     });
    });
+
+
+function toggleBookmark(button, eventId) {
+  const isBookmarked = button.dataset.isBookmarked === 'true';
+  const userId = '<%- userId %>'; // Retrieve the user ID from the server-side
+
+  fetch('/api/bookmark', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId, eventId, isBookmarked: !isBookmarked }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        button.classList.toggle('active', !isBookmarked);
+        button.dataset.isBookmarked = !isBookmarked ? 'true' : 'false';
+
+        // Update the bookmarked events in localStorage
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(data.bookmarkedEvents));
+      } else {
+        console.error('Error saving bookmark:', data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error saving bookmark:', error);
+    });
+}
+// Function to initialize bookmark buttons on page load
+function initializeBookmarkButtons() {
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarkedEvents')) || [];
+    const buttons = document.querySelectorAll('.bookmark-btn');
+
+    buttons.forEach(button => {
+        const eventId = button.closest('.event-card').dataset.eventId;
+        if (bookmarks.includes(eventId)) {
+            button.classList.add('active');
+            button.dataset.isBookmarked = 'true';
+        } else {
+            button.dataset.isBookmarked = 'false';
+        }
+    });
+}
+
+// Initialize bookmarks when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarkedEvents')) || [];
+  const buttons = document.querySelectorAll('.bookmark-btn');
+
+  buttons.forEach(button => {
+    const eventId = button.closest('.event-card').dataset.eventId;
+    if (bookmarks.includes(eventId)) {
+      button.classList.add('active');
+      button.dataset.isBookmarked = 'true';
+    } else {
+      button.dataset.isBookmarked = 'false';
+    }
+  });
+});
 </script>

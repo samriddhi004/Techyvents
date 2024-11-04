@@ -1,135 +1,254 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookmarked Events - TechyVents</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title><%= title %></title>
 </head>
 <body>
-    <%- include('partials/navbar') %>
-    
-    <div class="container py-8">
-        <h1 class="text-3xl font-bold mb-6">My Bookmarked Events</h1>
-        
+  <%- include('partials/navbar') %>
+      <div class="container">
+        <h1 class="section-title">My Bookmarked Events</h1>
+        <% if (bookmarkedEvents.length === 0) { %>
+        <p>You haven't bookmarked any events yet.</p>
+        <% } else { %>
         <div class="trending-cards">
-            <% if (events && events.length > 0) { %>
-                <% events.forEach(function(event) { %>
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="/<%= event.image %>" alt="<%= event.title %>">
-                            <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
-                                <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
-                            </div>
-                            <button 
-                                class="bookmark-btn active"
-                                data-event-id="<%= event._id %>"
-                                aria-label="Remove bookmark"
-                            >
-                                <i class="fas fa-bookmark"></i>
-                            </button>
-                        </div>
-                        <!-- Rest of your event card content -->
-                        <div class="event-content">
-                            <!-- Your existing event content structure -->
-                            <!-- ... -->
+            <% bookmarkedEvents.forEach(function(event) { %>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="/<%= event.image %>" alt="<%= event.title %>">
+                        <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
+                            <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
                         </div>
                     </div>
-                <% }); %>
-            <% } else { %>
-                <div class="text-center py-8">
-                    <i class="fas fa-bookmark text-4xl text-gray-400 mb-4"></i>
-                    <h2 class="text-xl font-semibold text-gray-600 mb-2">No Bookmarked Events</h2>
-                    <p class="text-gray-500">You haven't bookmarked any events yet.</p>
-                    <a href="/" class="inline-block mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Browse Events
-                    </a>
+                    <div class="event-content">
+                        <h3 class="event-title"><%= event.title %></h3>
+                        <p class="event-description"><%= event.description %></p>
+                        <div class="event-meta">
+                            <div class="event-date">
+                                <i class="fas fa-calendar"></i>
+                                <%= new Date(Date.parse(event.startdateTime)).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric'
+                                }) %>
+                                
+                            </div>
+                            <div class="event-time">
+                                <i class="fas fa-clock"></i>
+                                <%= new Date(event.startdateTime).toLocaleTimeString('en-US', {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }) %>
+                            </div>
+                        </div>
+                        <div class="event-tags">
+                            <% event.keywords.forEach(function(keyword) { %>
+                                <span class="tag"><%= keyword %></span>
+                            <% }); %>
+                        </div>
+                        <a href="<%= event.registrationLink %>" class="register-btn">Register Now</a>
+                    </div>
                 </div>
-            <% } %>
+            <% }); %>
         </div>
     </div>
+</body>
+</html>
+
+
+<style>
+     .trending-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+}
+
+.trending-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.event-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.price-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-tag.free {
+    background: #4ade80;
+    color: white;
+}
+
+.price-tag.paid {
+    background: #3b82f6;
+    color: white;
+}
+
+.event-content {
+    padding: 1.5rem;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.event-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.event-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.event-date, .event-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    background: #e5e7eb;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.register-btn {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.register-btn:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .trending-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
     
-    <script>
-        // Add this to your existing frontend JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle bookmark button clicks
-            document.querySelectorAll('.bookmark-btn').forEach(button => {
-                button.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    const eventId = this.dataset.eventId;
-                    
-                    try {
-                        const response = await fetch('/toggle-bookmark', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ eventId })
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (data.status === 'removed') {
-                            // If we're on the my-events page, remove the card
-                            if (window.location.pathname === '/my-events') {
-                                const card = this.closest('.event-card');
-                                card.remove();
-                                
-                                // Check if there are any cards left
-                                const remainingCards = document.querySelectorAll('.event-card');
-                                if (remainingCards.length === 0) {
-                                    location.reload(); // Reload to show empty state
-                                }
-                            } else {
-                                this.classList.remove('active');
-                            }
-                        } else {
-                            this.classList.add('active');
-                        }
-                    } catch (error) {
-                        console.error('Error toggling bookmark:', error);
-                    }
-                });
-            });
-        });
-    </script>
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .event-card {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .categories {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
     
-    <style>
-    /* Add these styles to your existing CSS */
-    .bookmark-btn {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        background: rgba(255, 255, 255, 0.9);
-        border: none;
-        border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
+    .category-item {
+        flex: 0 0 auto;
     }
-
-    .bookmark-btn i {
-        font-size: 1.2rem;
-        color: #666;
-        transition: all 0.2s ease;
-    }
-
-    .bookmark-btn:hover {
-        background: white;
-        transform: scale(1.05);
-    }
-
-    .bookmark-btn.active i {
-        color: #3b82f6;
-    }
-
-    /* Add this to your existing event card styles */
-    .event-image {
-        position: relative;
-    }
-    </style>
+}
+</style>
+<script>
+function toggleBookmark(button, eventId, userId) {
+    const isBookmarked = button.dataset.isBookmarked === 'true';
+  
+    fetch('/api/bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, eventId, isBookmarked: !isBookmarked }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          button.classList.toggle('active', !isBookmarked);
+          button.dataset.isBookmarked = !isBookmarked ? 'true' : 'false';
+  
+          // Update the bookmarked events in localStorage
+          localStorage.setItem('bookmarkedEvents', JSON.stringify(data.bookmarkedEvents));
+        } else {
+          console.error('Error saving bookmark:', data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error saving bookmark:', error);
+      });
+  }
+</script>
