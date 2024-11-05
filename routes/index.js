@@ -7,6 +7,7 @@ const verifyToken = require('../middleware/authMiddleware');
 
 // const upload = multer({ dest: 'uploads/' });
 const Event = require('../models/event'); 
+const User = require('../models/user');
 const { title } = require('process');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -190,6 +191,31 @@ router.get('/my-events', verifyToken, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error fetching bookmarked events');
+  }
+});
+
+router.post('/api/bookmark', verifyToken, async (req, res) => {
+  const { eventId, isBookmarked } = req.body;
+  const userId = res.locals.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    if (isBookmarked) {
+      user.bookmarkedEvents.push(eventId);
+    } else {
+      user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id !== eventId);
+    }
+
+    await user.save();
+    res.json({ success: true, bookmarkedEvents: user.bookmarkedEvents });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Error saving bookmark' });
   }
 });
 module.exports = router;

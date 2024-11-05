@@ -598,6 +598,7 @@ body {
 </style>
 
 <script>
+
    const seeLinkElements = document.querySelectorAll('.see-more-link');
    seeLinkElements.forEach(link=>{
     link.addEventListener('click', (event) =>{
@@ -613,23 +614,19 @@ body {
 
 function toggleBookmark(button, eventId) {
   const isBookmarked = button.dataset.isBookmarked === 'true';
-  const userId = '<%- userId %>'; // Retrieve the user ID from the server-side
 
   fetch('/api/bookmark', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId, eventId, isBookmarked: !isBookmarked }),
+    body: JSON.stringify({ eventId, isBookmarked: !isBookmarked }),
   })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
         button.classList.toggle('active', !isBookmarked);
         button.dataset.isBookmarked = !isBookmarked ? 'true' : 'false';
-
-        // Update the bookmarked events in localStorage
-        localStorage.setItem('bookmarkedEvents', JSON.stringify(data.bookmarkedEvents));
       } else {
         console.error('Error saving bookmark:', data.message);
       }
@@ -640,20 +637,26 @@ function toggleBookmark(button, eventId) {
 }
 // Function to initialize bookmark buttons on page load
 function initializeBookmarkButtons() {
-    const bookmarks = JSON.parse(localStorage.getItem('bookmarkedEvents')) || [];
-    const buttons = document.querySelectorAll('.bookmark-btn');
+  fetch('/api/bookmarks')
+    .then(response => response.json())
+    .then(data => {
+      const bookmarks = data.bookmarks || [];
+      const buttons = document.querySelectorAll('.bookmark-btn');
 
-    buttons.forEach(button => {
+      buttons.forEach(button => {
         const eventId = button.closest('.event-card').dataset.eventId;
         if (bookmarks.includes(eventId)) {
-            button.classList.add('active');
-            button.dataset.isBookmarked = 'true';
+          button.classList.add('active');
+          button.dataset.isBookmarked = 'true';
         } else {
-            button.dataset.isBookmarked = 'false';
+          button.dataset.isBookmarked = 'false';
         }
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching bookmarks:', error);
     });
 }
-
 // Initialize bookmarks when page loads
 document.addEventListener('DOMContentLoaded', () => {
   const bookmarks = JSON.parse(localStorage.getItem('bookmarkedEvents')) || [];
@@ -669,4 +672,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 </script>

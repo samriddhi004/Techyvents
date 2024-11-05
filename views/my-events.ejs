@@ -16,12 +16,19 @@
         <% } else { %>
         <div class="trending-cards">
             <% bookmarkedEvents.forEach(function(event) { %>
-                <div class="event-card">
+                <div class="event-card" data-event-id="<%= event._id %>">
                     <div class="event-image">
                         <img src="/<%= event.image %>" alt="<%= event.title %>">
                         <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
                             <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
                         </div>
+                        <button 
+                        class="bookmark-btn" 
+                        onclick="toggleBookmark(this, '<%= event._id %>', '<%= userId %>')"
+                        data-is-bookmarked="false"
+                    >
+                        <i class="fas fa-bookmark"></i>
+                    </button>
                     </div>
                     <div class="event-content">
                         <h3 class="event-title"><%= event.title %></h3>
@@ -224,31 +231,10 @@
     }
 }
 </style>
-<script>
-function toggleBookmark(button, eventId, userId) {
-    const isBookmarked = button.dataset.isBookmarked === 'true';
-  
-    fetch('/api/bookmark', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId, eventId, isBookmarked: !isBookmarked }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          button.classList.toggle('active', !isBookmarked);
-          button.dataset.isBookmarked = !isBookmarked ? 'true' : 'false';
-  
-          // Update the bookmarked events in localStorage
-          localStorage.setItem('bookmarkedEvents', JSON.stringify(data.bookmarkedEvents));
-        } else {
-          console.error('Error saving bookmark:', data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error saving bookmark:', error);
-      });
-  }
-</script>
+
+     <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
+    <!-- Include your external JavaScript file -->
+    <script src="./public/javascripts/bookmarks.js"></script>
+
+</body>
+</html>

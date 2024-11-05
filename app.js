@@ -58,29 +58,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post('/api/bookmark', async (req, res) => {
-  const { userId, eventId, isBookmarked } = req.body;
-
-  try {
-    let user = await User.findById(userId);
-    if (!user) {
-      // user = new User({ name: 'John Doe', bookmarkedEvents: [] });
-      console.log('no user');
-    }
-
-    if (isBookmarked) {
-      user.bookmarkedEvents.push(eventId);
-    } else {
-      user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id !== eventId);
-    }
-
-    await user.save();
-    res.json({ success: true, bookmarkedEvents: user.bookmarkedEvents });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: 'Error saving bookmark' });
-  }
-});
-
 
 module.exports = app;
