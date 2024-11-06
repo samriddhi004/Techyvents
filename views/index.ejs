@@ -101,7 +101,7 @@
                                 <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
                                     <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
                                 </div>
-                                <button class="bookmark-btn" data-is-bookmarked="false" onclick="toggleBookmark(this, '<%= event._id %>')">
+                                <button class="bookmark-btn" data-is-bookmarked="false" onclick="toggleBookmark(this, '<%= event._id %>', '<%= userId %>')">
                                     <i class="fas fa-bookmark"></i>
                                 </button>
                             </div>
@@ -486,7 +486,5 @@ body {
 
 
 }
-
-
 </style>
 

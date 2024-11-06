@@ -183,6 +183,11 @@ router.get('/my-events', verifyToken, async (req, res) => {
     // Fetch the bookmarked events from the database
     const bookmarkedEvents = await Event.find({ _id: { $in: user.bookmarkedEvents } });
 
+    bookmarkedEvents.forEach(event =>{
+      event.descriptionPreview = event.description.substring(0,150);
+      event.description =event.description;
+    })
+
     res.render('my-events', {
       title: 'My Bookmarked Events',
       bookmarkedEvents,
@@ -194,30 +199,6 @@ router.get('/my-events', verifyToken, async (req, res) => {
   }
 });
 
-// router.post('/api/bookmark', verifyToken, async (req, res) => {
-//   const { eventId, isBookmarked } = req.body;
-//   const userId = res.locals.userId;
-
-//   try {
-//     const user = await User.findById(userId);
-
-//     if (!user) {
-//       return res.status(404).json({ success: false, message: 'User not found' });
-//     }
-
-//     if (isBookmarked) {
-//       user.bookmarkedEvents.push(eventId);
-//     } else {
-//       user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id !== eventId);
-//     }
-
-//     await user.save();
-//     res.json({ success: true, bookmarkedEvents: user.bookmarkedEvents });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, message: 'Error saving bookmark' });
-//   }
-// });
 
 router.get('/api/bookmarks', async (req, res) => {
   // Check if the user is authenticated
