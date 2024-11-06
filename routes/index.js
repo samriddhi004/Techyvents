@@ -194,27 +194,68 @@ router.get('/my-events', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/api/bookmark', verifyToken, async (req, res) => {
+// router.post('/api/bookmark', verifyToken, async (req, res) => {
+//   const { eventId, isBookmarked } = req.body;
+//   const userId = res.locals.userId;
+
+//   try {
+//     const user = await User.findById(userId);
+
+//     if (!user) {
+//       return res.status(404).json({ success: false, message: 'User not found' });
+//     }
+
+//     if (isBookmarked) {
+//       user.bookmarkedEvents.push(eventId);
+//     } else {
+//       user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id !== eventId);
+//     }
+
+//     await user.save();
+//     res.json({ success: true, bookmarkedEvents: user.bookmarkedEvents });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, message: 'Error saving bookmark' });
+//   }
+// });
+
+router.get('/api/bookmarks', async (req, res) => {
+  // Check if the user is authenticated
+  if (!req.userId) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
+
+  try {
+    const user = await User.findById(req.userId);
+    res.json({ bookmarks: user.bookmarkedEvents });
+  } catch (error) {
+    console.error('Error fetching bookmarks:', error);
+    res.status(500).json({ success: false, message: 'Error fetching bookmarks' });
+  }
+});
+
+router.post('/api/bookmark', async (req, res) => {
   const { eventId, isBookmarked } = req.body;
-  const userId = res.locals.userId;
+  const userId = req.userId; // i dont know how to get the current user's ID
+  if (!req.userId) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
 
   try {
     const user = await User.findById(userId);
 
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-
     if (isBookmarked) {
-      user.bookmarkedEvents.push(eventId);
+      if (!user.bookmarkedEvents.includes(eventId)) {
+        user.bookmarkedEvents.push(eventId);
+      }
     } else {
-      user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id !== eventId);
+      user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id.toString() !== eventId);
     }
 
     await user.save();
-    res.json({ success: true, bookmarkedEvents: user.bookmarkedEvents });
-  } catch (err) {
-    console.error(err);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error saving bookmark:', error);
     res.status(500).json({ success: false, message: 'Error saving bookmark' });
   }
 });

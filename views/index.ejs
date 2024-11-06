@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/javascripts/bookmarks.js"></script>
 </head>
 <body>
     <%- include('partials/navbar') %>
@@ -88,67 +89,6 @@
             </div>
             
             
-<!-- 
-    <div class="trending-section">
-        <div class="container">
-            <h1 class="my-4">Upcoming Events</h1>
-            <div class="row">
-                <% if (events.length > 0) { %>
-                    <% events.forEach(function(event) { %>
-                        <div class="col-md-4">
-                            <div class="card mb-4">
-                                <img src="/<%= event.image %>" class="card-img-top img-fluid" alt="<%= event.title %>">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= event.title %></h5>
-                                    <p class="card-text"><%= event.description %></p>
-                                    <p><strong>Category:</strong> <%= event.category %></p>
-                                    <p><strong>Date:</strong> <%= new Date(event.startdateTime).toLocaleString() %> - <%= new Date(event.enddateTime).toLocaleString() %></p>
-                                    <p><strong>Pricing:</strong> <%= event.pricing === 'paid' ? 'Rs' + event.ticketPrice : 'Free' %></p>
-                                    <p><strong>Keywords:</strong> <%= event.keywords.join(', ') %></p>
-                                    <a href="<%= event.registrationLink %>" class="btn btn-primary">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <div class="col-12">
-                        <div class="alert alert-info" role="alert">
-                            No events found at the moment.
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-        </div> -->
-        
-        <!-- Trending Events Section -->
-        <!-- <div class="trending-section">
-            <div class="container">
-                <h2>Trending Events</h2>
-                <div class="trending-cards">
-                    <% events.forEach(function(event) { %>
-                        <div class="event-card">
-                            <div class="event-image">
-                                <img src="/<%= event.image %>" alt="<%= event.title %>">
-                            </div>
-                            <div class="event-content">
-                                <h3><%= event.title %></h3>
-                                <p><%= event.description %></p>
-                                <div class="event-tags">
-                                    <% event.keywords.forEach(function(keyword) { %>
-                                        <span><%= keyword %></span>
-                                    <% }); %>
-                                </div>
-                                <div class="event-info">
-                                    <span class="event-date"><%= new Date(event.startdateTime).toLocaleDateString() %> - <%= new Date(event.enddateTime).toLocaleDateString() %></span>
-                                    <span class="event-price"><%= event.pricing === 'paid' ? 'Rs ' + event.ticketPrice : 'Free' %></span>
-                                </div>
-                                <a href="<%= event.registrationLink %>" class="register-btn">Register</a>
-                            </div>
-                        </div>
-                    <% }); %>
-                </div>
-            </div>
-        </div> -->
 
         <div class="trending-section">
             <div class="container">
@@ -295,55 +235,8 @@ body {
     color: #374151;
     font-weight: 500;
 }
-/* .trending-section {
-            margin: 40px 0;
-        }
-        .trending-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .event-card {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 300px;
-        }
-        .event-image img {
-            width: 100%;
-            height: auto;
-        }
-        .event-content {
-            padding: 15px;
-        }
-        .event-tags span {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 4px;
-            padding: 3px 8px;
-            margin: 3px 5px 0 0;
-            font-size: 0.8em;
-        }
-        .event-info {
-            font-size: 0.9em;
-            color: #555;
-            margin: 10px 0;
-        }
-        .register-btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            text-align: center;
-            cursor: pointer;
-        } */
 
-        .trending-section {
+.trending-section {
     padding: 4rem 0;
     background-color: #f8f9fa;
 }
@@ -597,80 +490,3 @@ body {
 
 </style>
 
-<script>
-
-   const seeLinkElements = document.querySelectorAll('.see-more-link');
-   seeLinkElements.forEach(link=>{
-    link.addEventListener('click', (event) =>{
-        event.preventDefault();
-        const card = event.target.closest('.event-card');
-        const previewElement = card.querySelector('.event-description-preview');
-        const fullElement = card.querySelector('.event-description-full');
-        previewElement.style.display = 'none';
-        fullElement.style.display = 'block';
-    });
-   });
-
-
-function toggleBookmark(button, eventId) {
-  const isBookmarked = button.dataset.isBookmarked === 'true';
-
-  fetch('/api/bookmark', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ eventId, isBookmarked: !isBookmarked }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        button.classList.toggle('active', !isBookmarked);
-        button.dataset.isBookmarked = !isBookmarked ? 'true' : 'false';
-      } else {
-        console.error('Error saving bookmark:', data.message);
-      }
-    })
-    .catch(error => {
-      console.error('Error saving bookmark:', error);
-    });
-}
-// Function to initialize bookmark buttons on page load
-function initializeBookmarkButtons() {
-  fetch('/api/bookmarks')
-    .then(response => response.json())
-    .then(data => {
-      const bookmarks = data.bookmarks || [];
-      const buttons = document.querySelectorAll('.bookmark-btn');
-
-      buttons.forEach(button => {
-        const eventId = button.closest('.event-card').dataset.eventId;
-        if (bookmarks.includes(eventId)) {
-          button.classList.add('active');
-          button.dataset.isBookmarked = 'true';
-        } else {
-          button.dataset.isBookmarked = 'false';
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching bookmarks:', error);
-    });
-}
-// Initialize bookmarks when page loads
-document.addEventListener('DOMContentLoaded', () => {
-  const bookmarks = JSON.parse(localStorage.getItem('bookmarkedEvents')) || [];
-  const buttons = document.querySelectorAll('.bookmark-btn');
-
-  buttons.forEach(button => {
-    const eventId = button.closest('.event-card').dataset.eventId;
-    if (bookmarks.includes(eventId)) {
-      button.classList.add('active');
-      button.dataset.isBookmarked = 'true';
-    } else {
-      button.dataset.isBookmarked = 'false';
-    }
-  });
-});
-
-</script>
