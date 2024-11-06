@@ -7,6 +7,7 @@ const verifyToken = require('../middleware/authMiddleware');
 
 // const upload = multer({ dest: 'uploads/' });
 const Event = require('../models/event'); 
+const User = require('../models/user');
 const { title } = require('process');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -32,7 +33,7 @@ router.get('/',verifyToken, async function(req, res, next) {
       event.descriptionPreview = event.description.substring(0,150);
       event.description =event.description;
     })
-    res.render('index', { events, title: 'Techyvents' });
+    res.render('index', { events, title: 'Techyvents', userId: res.locals.userId });
 } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).send("Internal Server Error");
@@ -170,6 +171,73 @@ router.get('/events/:id', async (req, res) => {
 });
 
 
+router.get('/my-events', verifyToken, async (req, res) => {
+  try {
+    // Fetch the authenticated user
+    const user = await User.findById(res.locals.userId);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // Fetch the bookmarked events from the database
+    const bookmarkedEvents = await Event.find({ _id: { $in: user.bookmarkedEvents } });
+
+    bookmarkedEvents.forEach(event =>{
+      event.descriptionPreview = event.description.substring(0,150);
+      event.description =event.description;
+    })
+
+    res.render('my-events', {
+      title: 'My Bookmarked Events',
+      bookmarkedEvents,
+      userId: res.locals.userId
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching bookmarked events');
+  }
+});
 
 
+router.get('/api/bookmarks', async (req, res) => {
+  // Check if the user is authenticated
+  if (!req.userId) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
+
+  try {
+    const user = await User.findById(req.userId);
+    res.json({ bookmarks: user.bookmarkedEvents });
+  } catch (error) {
+    console.error('Error fetching bookmarks:', error);
+    res.status(500).json({ success: false, message: 'Error fetching bookmarks' });
+  }
+});
+
+router.post('/api/bookmark', async (req, res) => {
+  const { eventId, isBookmarked } = req.body;
+  const userId = req.userId; // i dont know how to get the current user's ID
+  if (!req.userId) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+
+    if (isBookmarked) {
+      if (!user.bookmarkedEvents.includes(eventId)) {
+        user.bookmarkedEvents.push(eventId);
+      }
+    } else {
+      user.bookmarkedEvents = user.bookmarkedEvents.filter(id => id.toString() !== eventId);
+    }
+
+    await user.save();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error saving bookmark:', error);
+    res.status(500).json({ success: false, message: 'Error saving bookmark' });
+  }
+});
 module.exports = router;
