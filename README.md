@@ -11,10 +11,10 @@ TechyVents is a web platform designed to centralize tech-related events in one p
 - **Event Insights**: Learn about event types, benefits, and how they contribute to skill development and networking.
 
 ## To-Dos
-✅ Make a profile page for each user.
-- Able to Save Events
-- Make each category redirect-able to those relevant events.
-- Make search bar functional acc to categories
+  ✅ Make a profile page for each user.
+  ✅ Able to Save Events
+- Make each category redirect-able to those relevant events.(for later i am tired)
+- Make search bar functional acc to categories.(for later i am tired)
   
 ## Tech Stack
 - **Backend**: Node.js, Express
