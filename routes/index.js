@@ -145,14 +145,14 @@ router.post('/create-event',verifyToken, upload.single('image'), async (req, res
   // res.render('findEvents', { events: dummyEvents, title:'Find Events'});
 
 
-router.get('/find-events', async (req, res) => {
+router.get('/find-events',verifyToken, async (req, res) => {
     try {
         const events = await Event.find(); // Fetch all events from the database
         events.forEach(event =>{
           event.descriptionPreview = event.description.substring(0,150);
           event.description =event.description;
         })
-        res.render('findEvents', { events, title: 'Find Events' });
+        res.render('findEvents', { events, title: 'Find Events,',userId: res.locals.userId });
     } catch (error) {
         console.error("Error fetching events:", error);
         res.status(500).send("Internal Server Error");

@@ -14,7 +14,7 @@
         <h2 class="section-title">Upcoming Events</h2>
         <div class="trending-cards">
             <% events.forEach(function(event) { %>
-                <div class="event-card">
+                <div class="event-card" data-event-id="<%= event._id %>">
                     <div class="event-image">
                         <img src="/<%= event.image %>" alt="<%= event.title %>">
                         <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
