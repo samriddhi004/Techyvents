@@ -5,39 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/javascripts/bookmarks.js"></script>
     <title><%= title %></title>
 </head>
 <body>
   <%- include('partials/navbar') %>
-    <!-- <div class="container">
-        <h1 class="my-4">Upcoming Events</h1>
-        <div class="row">
-          <% if (events.length > 0) { %>
-            <% events.forEach(function(event) { %>
-              <div class="col-md-4">
-                <div class="card mb-4">
-                  <img src="/<%= event.image %>" class="card-img-top img-fluid" alt="<%= event.title %>">
-                  <div class="card-body">
-                    <h5 class="card-title"><%= event.title %></h5>
-                    <p class="card-text"><%= event.description %></p>
-                    <p><strong>Category:</strong> <%= event.category %></p>
-                    <p><strong>Date:</strong> <%= new Date(event.startdateTime).toLocaleString() %> - <%= new Date(event.enddateTime).toLocaleString() %></p>
-                    <p><strong>Pricing:</strong> <%= event.pricing === 'paid' ? 'Rs' + event.ticketPrice : 'Free' %></p>
-                    <p><strong>Keywords:</strong> <%= event.keywords.join(', ') %></p>
-                    <a href="<%= event.registrationLink %>" class="btn btn-primary">Register</a>
-                  </div>
-                </div>
-              </div>
-            <% }); %>
-          <% } else { %>
-            <div class="col-12">
-              <div class="alert alert-info" role="alert">
-                No events found at the moment.
-              </div>
-            </div>
-          <% } %>
-        </div>
-      </div> -->
       <div class="container">
         <h2 class="section-title">Upcoming Events</h2>
         <div class="trending-cards">
@@ -48,10 +20,15 @@
                         <div class="price-tag <%= event.pricing === 'free' ? 'free' : 'paid' %>">
                             <%= event.pricing === 'free' ? 'Free' : '₹' + event.ticketPrice %>
                         </div>
+                        <button class="bookmark-btn" data-is-bookmarked="false" onclick="toggleBookmark(this, '<%= event._id %>', '<%= userId %>')">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
                     </div>
                     <div class="event-content">
                         <h3 class="event-title"><%= event.title %></h3>
-                        <p class="event-description"><%= event.description %></p>
+                        <div class="event-description-preview"><%= event.descriptionPreview %></div>
+                                <div class="event-description-full" style="display: none;"><%= event.description %></div>
+                                <a href="#" class="see-more-link">See more</a>
                         <div class="event-meta">
                             <div class="event-date">
                                 <i class="fas fa-calendar"></i>
@@ -249,4 +226,50 @@
         flex: 0 0 auto;
     }
 }
+
+.bookmark-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.bookmark-btn:hover {
+    transform: scale(1.1);
+}
+
+.bookmark-btn i {
+    color: #666;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.bookmark-btn.active i {
+    color: #3b82f6;
+}
+.see-more-link {
+  display: inline;
+  color: black;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+  font-weight: 800;
+  text-decoration: none; 
+  font-style: italic;
+}
+
+.see-more-link:hover {
+  color: #2563eb;
+}
+
 </style>

@@ -148,6 +148,10 @@ router.post('/create-event',verifyToken, upload.single('image'), async (req, res
 router.get('/find-events', async (req, res) => {
     try {
         const events = await Event.find(); // Fetch all events from the database
+        events.forEach(event =>{
+          event.descriptionPreview = event.description.substring(0,150);
+          event.description =event.description;
+        })
         res.render('findEvents', { events, title: 'Find Events' });
     } catch (error) {
         console.error("Error fetching events:", error);
