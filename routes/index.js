@@ -152,7 +152,7 @@ router.get('/find-events',verifyToken, async (req, res) => {
           event.descriptionPreview = event.description.substring(0,150);
           event.description =event.description;
         })
-        res.render('findEvents', { events, title: 'Find Events,',userId: res.locals.userId });
+        res.render('findEvents', { events, title: 'Find Events',userId: res.locals.userId });
     } catch (error) {
         console.error("Error fetching events:", error);
         res.status(500).send("Internal Server Error");
