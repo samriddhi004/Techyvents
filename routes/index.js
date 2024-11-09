@@ -191,10 +191,11 @@ router.get('/my-events', verifyToken, async (req, res) => {
       event.descriptionPreview = event.description.substring(0,150);
       event.description =event.description;
     })
+    events = bookmarkedEvents;
 
     res.render('my-events', {
       title: 'My Bookmarked Events',
-      bookmarkedEvents,
+      events,
       userId: res.locals.userId
     });
   } catch (err) {

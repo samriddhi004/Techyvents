@@ -1,0 +1,91 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.hero-section {
+    background: linear-gradient(120deg, #f0f4ff 0%, #e6eeff 100%);
+    padding: 4rem 0;  /* Reduced padding */
+    min-height: 60vh;
+}
+
+.container {
+    max-width: 1400px;  /* Increased max-width */
+    margin: 0 auto;
+}
+
+.hero-text {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hero-text h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(120deg, #2563eb, #4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.25rem;
+    color: #4b5563;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+.categories a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; 
+    display: block; /* Make the anchor fill the category item */
+    padding: 10px; 
+    
+}
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.icon-circle {
+    width: 120px;  /* Larger circle */
+    height: 120px;  /* Larger circle */
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.category-item:hover .icon-circle {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle i {
+    font-size: 2rem;  /* Larger icons */
+    color: #2563eb;
+}
+
+.category-item span {
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 500;
+}
+

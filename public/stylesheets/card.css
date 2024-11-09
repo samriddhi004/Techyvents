@@ -1,0 +1,210 @@
+.trending-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+}
+
+.trending-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.event-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.price-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-tag.free {
+    background: #4ade80;
+    color: white;
+}
+
+.price-tag.paid {
+    background: #3b82f6;
+    color: white;
+}
+
+.event-content {
+    padding: 1.5rem;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.event-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.event-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.event-date, .event-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    background: #e5e7eb;
+    color: #4b5563;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.register-btn {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.register-btn:hover {
+    background: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .trending-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+.see-more-link {
+display: inline;
+color: black;
+font-weight: 500;
+font-size: 0.875rem;
+transition: color 0.3s ease;
+font-weight: 800;
+text-decoration: none; 
+font-style: italic;
+}
+
+.see-more-link:hover {
+color: #2563eb;
+}
+
+.bookmark-btn {
+ position: absolute;
+ top: 1rem;
+ left: 1rem;
+ background: white;
+ border: none;
+ border-radius: 50%;
+ width: 36px;
+ height: 36px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ transition: all 0.3s ease;
+}
+
+.bookmark-btn:hover {
+ transform: scale(1.1);
+}
+
+.bookmark-btn i {
+ color: #666;
+ font-size: 1.2rem;
+ transition: color 0.3s ease;
+}
+
+.bookmark-btn.active i {
+ color: #3b82f6;
+}
+
+@media (max-width: 480px) {
+    .event-card {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .categories {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    
+    .category-item {
+        flex: 0 0 auto;
+    }
+}
